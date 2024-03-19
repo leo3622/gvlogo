@@ -24,6 +24,11 @@ typedef struct color_t {
 	unsigned char b;
 } color;
 
+typedef struct coord_t {
+	int x;
+	int y;
+} coords;
+
 static color current_color;
 static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
