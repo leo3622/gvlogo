@@ -87,7 +87,7 @@ command:		PENUP						{ penup(); }
 		|		PENDOWN						{ pendown(); }
 		|		PRINT QSTRING				{ output($2); }
 		|		SAVE STRING							{ save($2); }
-		|		COLOR expression expression expression	{ change_color($2, $3, $4); }
+		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
 		|		CLEAR						{ clear(); }
 		|		TURN expression						{ turn($2); }
 		|		MOVE expression 					{ move($2); }
@@ -102,7 +102,7 @@ expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
 		|	NUMBER MULT expression				{ $$ = $1 * $3; }
 		|	NUMBER SUB expression				{ $$ = $1 - $3; }
 		|	NUMBER DIV expression				{ $$ = $1 / $3; }
-		|	NUMBER
+		|	NUMBER 								{$$ = $1;}
 		;
 
 %%
