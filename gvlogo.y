@@ -54,6 +54,7 @@ void shutdown();
 %}
 
 %union {
+	int i;
 	float f;
 	char* s;
 }
