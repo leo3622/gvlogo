@@ -29,6 +29,7 @@ typedef struct coord_t {
 	int y;
 } coords;
 
+static coords current_coords;
 static color current_color;
 static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
