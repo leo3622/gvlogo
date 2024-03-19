@@ -23,7 +23,6 @@ WHERE                              {return WHERE;}
 \+                                 {return PLUS;}
 \-                                 {return SUB;}
 \*                                 {return MULT;}
-=				                   {return EQUAL;}
 \/                                 {return DIV;}
 [ \t\r\n]			;
 .			{ yyerror("Lexing Syntax error.\n"); } 
