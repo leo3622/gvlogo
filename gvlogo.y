@@ -99,7 +99,8 @@ command:		PENUP						{ penup(); }
 		|		TURN expression						{ turn($2); }
 		|		MOVE expression 					{ move($2); }
 		|		GOTO expression expression	{ go_to($2, $3); }
-		|		WHERE						{ where(); } 
+		|		WHERE						{ where(); }
+		|		expression 					{ printf("Result: %d\n", $1); }
 		;
 expression_list:	expression				   // Complete these and any missing rules
 		|		expression expression_list   
