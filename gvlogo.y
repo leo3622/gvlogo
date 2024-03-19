@@ -106,10 +106,10 @@ expression_list:	expression				   // Complete these and any missing rules
 		|		expression expression_list   
 		|       expression PLUS expression_list 		
 		;
-expression:		NUMBER PLUS expression				{ $$ = $1 + $3; }
-		|	NUMBER MULT expression				{ $$ = $1 * $3; }
-		|	NUMBER SUB expression				{ $$ = $1 - $3; }
-		|	NUMBER DIV expression				{ $$ = $1 / $3; }
+expression:		expression PLUS NUMBER				{ $$ = $1 + $3; }
+		|	expression MULT NUMBER				{ $$ = $1 * $3; }
+		|	expression SUB NUMBER				{ $$ = $1 - $3; }
+		|	expression DIV NUMBER				{ $$ = $1 / $3; }
 		|	NUMBER 								{$$ = $1;}
 		;
 
