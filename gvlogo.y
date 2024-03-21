@@ -97,7 +97,7 @@ command:		PENUP						{ penup(); }
 		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
 		|		CLEAR						{ clear(); }
 		|		TURN expression						{ turn($2); }
-		|		MOVE expression 					{ move((int)$2); }
+		|		MOVE expression 					{ move($2); }
 		|		GOTO expression expression	{ go_to($2, $3); }
 		|		WHERE						{ where(); }
 		|		expression 					{ printf("Result: %d\n", $1); }

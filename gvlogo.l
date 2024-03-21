@@ -25,7 +25,7 @@ WHERE                              {return WHERE;}
 \-                                 {return SUB;}
 \*                                 {return MULT;}
 \/                                 {return DIV;}
-[ \t\r\n]			;
+[ \t\r\n]			                 {;}
 .			{ yyerror("Lexing Syntax error.\n"); } 
 
 %%
