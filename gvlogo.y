@@ -82,31 +82,31 @@ void shutdown();
 
 %%
 
-program:		statement_list END				{ printf("Program complete."); shutdown(); exit(0); }
+program:		statement_list END								{ printf("Program complete."); shutdown(); exit(0); }
 		;
-statement_list:		statement					
-		|	statement statement_list
+statement_list:	statement					
+		|		statement statement_list
 		;
-statement:		command SEP					{ prompt(); }
-		|	error '\n' 					{ yyerrok; prompt(); }
+statement:		command SEP										{ prompt(); }
+		|		error '\n'										{ yyerrok; prompt(); }
 		;
-command:		PENUP						{ penup(); }
-		|		PENDOWN						{ pendown(); }
-		|		PRINT QSTRING				{ output((char**)$2); }
-		|		SAVE STRING							{ save((char**)$2); }
+command:		PENUP											{ penup(); }
+		|		PENDOWN											{ pendown(); }
+		|		PRINT QSTRING									{ output((char**)$2); }
+		|		SAVE STRING										{ save((char**)$2); }
 		|		CHANGE_COLOR expression expression expression	{ change_color((int)$2, (int)$3, (int)$4); }
-		|		CLEAR						{ clear(); }
-		|		TURN expression						{ turn((int)$2); }
-		|		MOVE expression 					{ move((int)$2); }
-		|		GOTO expression expression	{ go_to((int)$2, (int)$3); }
-		|		WHERE						{ where(); }
+		|		CLEAR											{ clear(); }
+		|		TURN expression									{ turn((int)$2); }
+		|		MOVE expression 								{ move((int)$2); }
+		|		GOTO expression expression						{ go_to((int)$2, (int)$3); }
+		|		WHERE											{ where(); }
 		|		expression 					
 		;
 expression_list:	expression				   // Complete these and any missing rules
-		|		expression expression_list   
-		|       expression PLUS expression_list 		
+		|			expression expression_list   
+		|       	expression PLUS expression_list 		
 		;
-expression:		expression PLUS NUMBER				{ $$ = $1 + $3; printf("Result: %f\n", $$); }
+expression:	expression PLUS NUMBER				{ $$ = $1 + $3; printf("Result: %f\n", $$); }
 		|	expression MULT NUMBER				{ $$ = $1 * $3; printf("Result: %f\n", $$); }
 		|	expression SUB NUMBER				{ $$ = $1 - $3; printf("Result: %f\n", $$); }
 		|	expression DIV NUMBER				{ $$ = $1 / $3; printf("Result: %f\n", $$); }
