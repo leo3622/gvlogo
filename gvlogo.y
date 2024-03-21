@@ -73,12 +73,12 @@ void shutdown();
 %token MOVE
 %token GOTO
 %token WHERE
-%token <f> NUMBER
+%token NUMBER
 %token END
 %token SAVE
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
-%type<f> expression expression_list
+%type<f> expression expression_list NUMBER
 
 %%
 
@@ -94,11 +94,11 @@ command:		PENUP						{ penup(); }
 		|		PENDOWN						{ pendown(); }
 		|		PRINT QSTRING				{ output($2); }
 		|		SAVE STRING							{ save($2); }
-		|		CHANGE_COLOR expression expression expression	{ change_color($2, $3, $4); }
+		|		CHANGE_COLOR expression expression expression	{ change_color((int)$2, (int)$3, (int)$4); }
 		|		CLEAR						{ clear(); }
-		|		TURN expression						{ turn($2); }
-		|		MOVE expression 					{ move($2); }
-		|		GOTO expression expression	{ go_to($2, $3); }
+		|		TURN expression						{ turn((int)$2); }
+		|		MOVE expression 					{ move((int)$2); }
+		|		GOTO expression expression	{ go_to((int)$2, (int)$3); }
 		|		WHERE						{ where(); }
 		|		expression 					{ printf("Result: %d\n", $1); }
 		;
@@ -142,7 +142,6 @@ void pendown() {
 }
 
 void move(int num){
-	printf("Moving %d\n", num);
 	event.type = DRAW_EVENT;
 	event.user.code = 1;
 	event.user.data1 = num;
