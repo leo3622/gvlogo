@@ -7,7 +7,8 @@ extern void yyerror(const char* s);
 %}
 
 %%
-[A-Z]{1}[a-z]+                     { yylval.s = yytext; return STRING; } 
+[A-Z]{1}[a-z]+                     { yylval.s = yytext; return STRING; }
+"\"[A-Z]+[a-z]*\""                 { yylval.s = strdup(yytext); return QSTRING; } 
 [0-9]+([.][0-9]+)?                 { yylval.f = atof(yytext); return NUMBER; }
 ;                                  {return SEP;}
 PENUP                              {return PENUP;}
