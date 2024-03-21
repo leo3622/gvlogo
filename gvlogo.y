@@ -73,7 +73,7 @@ void shutdown();
 %token MOVE
 %token GOTO
 %token WHERE
-%token NUMBER
+%token <f> NUMBER
 %token END
 %token SAVE
 %token PLUS SUB MULT DIV
