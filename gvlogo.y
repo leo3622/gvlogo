@@ -106,10 +106,10 @@ expression_list:	expression				   // Complete these and any missing rules
 		|		expression expression_list   
 		|       expression PLUS expression_list 		
 		;
-expression:		expression PLUS NUMBER				{ $$ = $1 + $3; printf("Result: %d\n", $$); }
-		|	expression MULT NUMBER				{ $$ = $1 * $3; printf("Result: %d\n", $$); }
-		|	expression SUB NUMBER				{ $$ = $1 - $3; printf("Result: %d\n", $$); }
-		|	expression DIV NUMBER				{ $$ = $1 / $3; printf("Result: %d\n", $$); }
+expression:		expression PLUS NUMBER				{ $$ = $1 + $3; printf("Result: %f\n", $$); }
+		|	expression MULT NUMBER				{ $$ = $1 * $3; printf("Result: %f\n", $$); }
+		|	expression SUB NUMBER				{ $$ = $1 - $3; printf("Result: %f\n", $$); }
+		|	expression DIV NUMBER				{ $$ = $1 / $3; printf("Result: %f\n", $$); }
 		|	NUMBER 								{$$ = $1;}
 		;
 
