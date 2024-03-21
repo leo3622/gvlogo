@@ -7,7 +7,7 @@ extern void yyerror(const char* s);
 %}
 
 %%
-\"[^"]*\"                          { yylval.s = yytext; return STRING; }
+\"[^"]*\"                          { yylval.s = yytext; return QSTRING; }
 [0-9]+([.][0-9]+)?                 { yylval.f = atof(yytext); return NUMBER; }
 ;                                  {return SEP;}
 PENUP                              {return PENUP;}
