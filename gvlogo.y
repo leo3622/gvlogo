@@ -92,7 +92,7 @@ statement:		command SEP					{ prompt(); }
 		;
 command:		PENUP						{ penup(); }
 		|		PENDOWN						{ pendown(); }
-		|		PRINT QSTRING				{ output($2); }
+		|		PRINT STRING				{ output((char**)$2); }
 		|		SAVE STRING							{ save($2); }
 		|		CHANGE_COLOR expression expression expression	{ change_color((int)$2, (int)$3, (int)$4); }
 		|		CLEAR						{ clear(); }
