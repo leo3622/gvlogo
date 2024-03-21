@@ -100,16 +100,16 @@ command:		PENUP						{ penup(); }
 		|		MOVE expression 					{ move((int)$2); }
 		|		GOTO expression expression	{ go_to((int)$2, (int)$3); }
 		|		WHERE						{ where(); }
-		|		expression 					{ printf("Result: %d\n", $1); }
+		|		expression 					
 		;
 expression_list:	expression				   // Complete these and any missing rules
 		|		expression expression_list   
 		|       expression PLUS expression_list 		
 		;
-expression:		expression PLUS NUMBER				{ $$ = $1 + $3; }
-		|	expression MULT NUMBER				{ $$ = $1 * $3; }
-		|	expression SUB NUMBER				{ $$ = $1 - $3; }
-		|	expression DIV NUMBER				{ $$ = $1 / $3; }
+expression:		expression PLUS NUMBER				{ $$ = $1 + $3; printf("Result: %d\n", $1); }
+		|	expression MULT NUMBER				{ $$ = $1 * $3; printf("Result: %d\n", $1); }
+		|	expression SUB NUMBER				{ $$ = $1 - $3; printf("Result: %d\n", $1); }
+		|	expression DIV NUMBER				{ $$ = $1 / $3; printf("Result: %d\n", $1); }
 		|	NUMBER 								{$$ = $1;}
 		;
 
