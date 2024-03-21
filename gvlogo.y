@@ -142,6 +142,7 @@ void pendown() {
 }
 
 void move(int num){
+	printf("Moving %d\n", num);
 	event.type = DRAW_EVENT;
 	event.user.code = 1;
 	event.user.data1 = num;
