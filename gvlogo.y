@@ -78,7 +78,7 @@ void shutdown();
 %token SAVE
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
-%type<f> expression expression_list NUMBER
+%type<f> expression expression_list
 
 %%
 
