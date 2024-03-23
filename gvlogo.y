@@ -182,7 +182,7 @@ void go_to(int x, int y) {
 		int slope_y = current_coords.y - prev_coords.y;
 		int slope_x = current_coords.x - prev_coords.x;
 		double dir = atan(slope_y/slope_x);
-		move(dir);
+		move(int(dir));
 	}
 }
 
