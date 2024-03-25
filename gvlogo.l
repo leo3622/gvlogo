@@ -5,7 +5,7 @@
 
 extern void yyerror(const char* s);
 %}
-
+%option noyywrap
 %%
 \"[^"]*\"                          {yylval.s = yytext; return QSTRING;}
 [A-Za-z]+[.]bmp                    {yylval.s = yytext; return STRING;}
