@@ -187,7 +187,7 @@ void go_to(int x, int y) {
 		int slope_y = current_coords.y - prev_coords.y;
 		int slope_x = current_coords.x - prev_coords.x;
 		double dir = atan(slope_y/slope_x);
-		move(int(dir));
+		move((int)dir);
 	}
 }
 
@@ -196,7 +196,7 @@ void where() {
 }
 
 void storeVariable(char var, float val) {
-	var_table[var] = val
+	var_table[var] = val;
 }
 float getVariable(char var) {
 	return var_table[var];
