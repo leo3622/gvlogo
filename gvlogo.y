@@ -7,6 +7,7 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_thread.h>
+#include <map>
 
 static SDL_Window* window;
 static SDL_Renderer* rend;
@@ -35,6 +36,7 @@ static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
 static int pen_state = 1;
 static double direction = 0.0;
+static std::map<char, float> var_table;
 
 int yylex(void);
 int yyerror(const char* s);
@@ -50,17 +52,19 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
+void store_variable(char var, float val);
 
 %}
 
 %union {
-	int i;
 	float f;
 	char* s;
+	char c;
 }
 
 %locations
 
+%token EQUAL
 %token SEP
 %token PENUP
 %token PENDOWN
@@ -78,6 +82,7 @@ void shutdown();
 %token SAVE
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
+%token<c> VAR
 %type<f> expression expression_list NUMBER
 
 %%
@@ -94,13 +99,14 @@ command:		PENUP											{ penup(); }
 		|		PENDOWN											{ pendown(); }
 		|		PRINT QSTRING									{ output((char**)$2); }
 		|		SAVE STRING										{ save((char**)$2); }
-		|		CHANGE_COLOR expression expression expression	{ change_color((int)$2, (int)$3, (int)$4); }
+		|		CHANGE_COLOR expression_list					{ change_color((int)$2, (int)$3, (int)$4); }
 		|		CLEAR											{ clear(); }
-		|		TURN expression									{ turn((int)$2); }
-		|		MOVE expression 								{ move((int)$2); }
-		|		GOTO expression expression						{ go_to((int)$2, (int)$3); }
+		|		TURN expression_list							{ turn((int)$2); }
+		|		MOVE expression_list 							{ move((int)$2); }
+		|		GOTO expression_list							{ go_to((int)$2, (int)$3); }
 		|		WHERE											{ where(); }
-		|		expression 					
+		|		expression_list
+		| 		VAR EQUAL expression							{ printf("Variable assigned.\n"); }			
 		;
 expression_list:	expression				   // Complete these and any missing rules
 		|			expression expression_list   
@@ -188,6 +194,18 @@ void go_to(int x, int y) {
 
 void where() {
 	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
+}
+
+void storeVariable(char var, float val) {
+	var_table[var] = val
+}
+float getVariable(char var) {
+	if (var_table.find(var) == var_table) {
+		printf("Can't find variable")
+	}
+	else {
+		return var_table[var];
+	}
 }
 
 void startup(){
