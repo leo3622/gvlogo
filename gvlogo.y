@@ -104,7 +104,7 @@ command:		PENUP											{ penup(); }
 		|		MOVE expression									{ move((int)$2); }
 		|		GOTO expression expression						{ go_to((int)$2, (int)$3); }
 		|		WHERE											{ where(); }
-		|		expression_list		
+		|		expression
 		;
 expression_list:	expression				   // Complete these and any missing rules
 		|			expression expression_list   
