@@ -109,7 +109,8 @@ command:		PENUP											{ penup(); }
 		| 		VAR EQUAL expression							{ printf("Variable assigned.\n"); }			
 		;
 expression_list:	expression				   // Complete these and any missing rules
-		|			expression expression_list   
+		|			expression expression
+		|			expression expression expression   
 		|       	expression PLUS expression_list 		
 		;
 expression:	expression PLUS NUMBER				{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
