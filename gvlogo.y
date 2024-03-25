@@ -104,8 +104,7 @@ command:		PENUP											{ penup(); }
 		|		MOVE expression									{ move((int)$2); }
 		|		GOTO expression expression						{ go_to((int)$2, (int)$3); }
 		|		WHERE											{ where(); }
-		|		expression_list
-		| 		VAR EQUAL expression							{ printf("Variable assigned.\n"); }			
+		|		expression_list		
 		;
 expression_list:	expression				   // Complete these and any missing rules
 		|			expression expression_list   
