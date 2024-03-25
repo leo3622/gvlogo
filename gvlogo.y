@@ -99,18 +99,17 @@ command:		PENUP											{ penup(); }
 		|		PENDOWN											{ pendown(); }
 		|		PRINT QSTRING									{ output((char**)$2); }
 		|		SAVE STRING										{ save((char**)$2); }
-		|		CHANGE_COLOR expression_list					{ change_color((int)$2, (int)$3, (int)$4); }
+		|		CHANGE_COLOR expression expression expression	{ change_color((int)$2, (int)$3, (int)$4); }
 		|		CLEAR											{ clear(); }
-		|		TURN expression_list							{ turn((int)$2); }
-		|		MOVE expression_list 							{ move((int)$2); }
-		|		GOTO expression_list							{ go_to((int)$2, (int)$3); }
+		|		TURN expression									{ turn((int)$2); }
+		|		MOVE expression									{ move((int)$2); }
+		|		GOTO expression expression						{ go_to((int)$2, (int)$3); }
 		|		WHERE											{ where(); }
 		|		expression_list
 		| 		VAR EQUAL expression							{ printf("Variable assigned.\n"); }			
 		;
 expression_list:	expression				   // Complete these and any missing rules
-		|			expression expression
-		|			expression expression expression   
+		|			expression expression_list   
 		|       	expression PLUS expression_list 		
 		;
 expression:	expression PLUS NUMBER				{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
