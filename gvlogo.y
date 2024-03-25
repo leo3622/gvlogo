@@ -7,7 +7,6 @@
 #include <stdlib.h>
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_thread.h>
-#include <map>
 
 static SDL_Window* window;
 static SDL_Renderer* rend;
@@ -36,7 +35,7 @@ static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
 static int pen_state = 1;
 static double direction = 0.0;
-static std::map<char, float> var_table;
+static int var_table[26];
 
 int yylex(void);
 int yyerror(const char* s);
@@ -200,12 +199,7 @@ void storeVariable(char var, float val) {
 	var_table[var] = val
 }
 float getVariable(char var) {
-	if (var_table.find(var) == var_table) {
-		printf("Can't find variable")
-	}
-	else {
-		return var_table[var];
-	}
+	return var_table[var];
 }
 
 void startup(){
