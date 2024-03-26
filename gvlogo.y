@@ -52,6 +52,7 @@ void clear();
 void save(const char* path);
 void shutdown();
 void storeVariable(char var, float val);
+float getVariable(char var);
 
 %}
 
@@ -199,7 +200,7 @@ void where() {
 
 void storeVariable(char var, float val) {
     var_table[var] = val;
-	printf("Worked: %f\n", var_table[var])
+	printf("Worked: %f\n", var_table[var]);
 }
 
 float getVariable(char var) {
