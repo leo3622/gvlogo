@@ -196,6 +196,7 @@ void where() {
 }
 
 void storeVariable(char var, float val) {
+	printf("Worked");
     int i = var - 'a';
     if (i >= 0 && i < 26) {
         var_table[i] = val;
