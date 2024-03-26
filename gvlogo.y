@@ -96,8 +96,8 @@ statement:		command SEP										{ prompt(); }
 		;
 command:		PENUP											{ penup(); }
 		|		PENDOWN											{ pendown(); }
-		|		PRINT QSTRING									{ output((char**)$2); }
-		|		SAVE STRING										{ save((char**)$2); }
+		|		PRINT QSTRING									{ output((char*)$2); }
+		|		SAVE STRING										{ save((char*)$2); }
 		|		CHANGE_COLOR expression expression expression	{ change_color((int)$2, (int)$3, (int)$4); }
 		|		CLEAR											{ clear(); }
 		|		TURN expression									{ turn((int)$2); }
@@ -105,7 +105,7 @@ command:		PENUP											{ penup(); }
 		|		GOTO expression expression						{ go_to((int)$2, (int)$3); }
 		|		WHERE											{ where(); }
 		|		expression_list
-		| 		VAR EQUAL expression							{storeVariable($1, $3); printf("Variable assigned.\n"); }			
+		| 		VAR EQUAL expression							{storeVariable((char*)$1, (float)$3); printf("Variable assigned.\n"); }			
 		;
 expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}// Complete these and any missing rules
 		|			expression expression_list
