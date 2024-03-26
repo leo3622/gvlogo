@@ -81,8 +81,7 @@ void storeVariable(char var, float val);
 %token SAVE
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
-%token VAR
-%type<c> VAR
+%token<c> VAR
 %type<f> expression expression_list NUMBER
 
 %%
@@ -117,7 +116,7 @@ expression:	expression PLUS NUMBER				{ $$ = $1 + $3; }
 		|	expression SUB NUMBER				{ $$ = $1 - $3; }
 		|	expression DIV NUMBER				{ $$ = $1 / $3; }
 		|	NUMBER 								{$$ = $1;}
-		|	VAR									{$$ = getVariable((char)$1);}
+		|	VAR									{$$ = var_table[VAR];}
 		;
 
 %%
