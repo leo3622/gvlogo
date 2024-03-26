@@ -51,7 +51,7 @@ void change_color(int r, int g, int b);
 void clear();
 void save(const char* path);
 void shutdown();
-void store_variable(char var, float val);
+void storeVariable(char var, float val);
 
 %}
 
