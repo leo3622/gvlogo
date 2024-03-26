@@ -196,8 +196,8 @@ void where() {
 }
 
 void storeVariable(char var, float val) {
-	printf("%f", var_table[var]);
 	var_table[var] = val;
+	printf("%f", var_table[var]);
 }
 float getVariable(char var) {
 	return var_table[var];
