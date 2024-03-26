@@ -216,7 +216,7 @@ void go_to(float x, float y) {
         // Move the turtle
         event.type = DRAW_EVENT;
 		event.user.code = 1;
-		event.user.data1 = distance;
+		event.user.data1 = (int)distance;
 		SDL_PushEvent(&event);
     }
 }
