@@ -153,9 +153,8 @@ void pendown() {
 
 void move(int num){
 	coords prev_coords = current_coords;
-	current_coords.x = prev_coords.x + num * cos(prev_coords.alpha);
-	current_coords.y = prev_coords.y + num * sin(prev_coords.alpha);
-	
+	current_coords.x = round(prev_coords.x + num * cos(prev_coords.alpha));
+	current_coords.y = round(prev_coords.y + num * sin(prev_coords.alpha));
 	event.type = DRAW_EVENT;
 	event.user.code = 1;
 	event.user.data1 = num;
