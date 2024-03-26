@@ -210,19 +210,17 @@ void go_to(float x, float y) {
     turn(angle);
 	current_coords.alpha = angle;
     // Draw if pen is down
-    if (pen_state == 1) {
-        printf("Drawing line from (%f, %f) to (%f, %f)\n", prev_coords.x, prev_coords.y, current_coords.x, current_coords.y);
+    printf("Drawing line from (%f, %f) to (%f, %f)\n", prev_coords.x, prev_coords.y, current_coords.x, current_coords.y);
         
-        // Move the turtle
-        event.type = DRAW_EVENT;
-		event.user.code = 1;
-		event.user.data1 = (int)distance;
-		SDL_PushEvent(&event);
-    }
+    // Move the turtle
+    event.type = DRAW_EVENT;
+	event.user.code = 1;
+	event.user.data1 = (int)distance;
+	SDL_PushEvent(&event);
 }
 
 void where() {
-	printf("Current coordinates: (%d, %d)\n", current_coords.x, current_coords.y);
+	printf("Current coordinates: (%f, %f)\n", current_coords.x, current_coords.y);
 }
 
 void storeVariable(char var, float val) {
