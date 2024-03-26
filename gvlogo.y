@@ -199,6 +199,7 @@ void storeVariable(char var, float val) {
     int i = var - 'a';
     if (i >= 0 && i < 26) {
         var_table[i] = val;
+		printf("%f\n", var_table[i])
     } else {
         printf("Variable name must be a lowercase letter a-z.\n");
     }
