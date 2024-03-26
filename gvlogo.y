@@ -82,7 +82,8 @@ void storeVariable(char var, float val);
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
 %token<c> VAR
-%type<f> expression expression_list NUMBER VAR
+%type<c> VAR
+%type<f> expression expression_list NUMBER
 
 %%
 
