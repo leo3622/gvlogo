@@ -1,3 +1,4 @@
+//GROUP NAME: Leo Ho, Minh Tran
 %{
 #define WIDTH 640
 #define HEIGHT 480
