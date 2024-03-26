@@ -55,7 +55,7 @@ void save(const char* path);
 void shutdown();
 void storeVariable(char var, float val);
 float getVariable(char var);
-float go_to(float x, float y);
+void go_to(float x, float y);
 void where();
 
 %}
@@ -154,8 +154,8 @@ void pendown() {
 }
 
 void move(int num){
-	double radians = prev_coords.alpha * (M_PI / 180.0);
 	coords prev_coords = current_coords;
+	double radians = prev_coords.alpha * (M_PI / 180.0);
 	current_coords.x = round(prev_coords.x + num * cos(radians));
 	current_coords.y = round(prev_coords.y + num * sin(radians));
 	event.type = DRAW_EVENT;
