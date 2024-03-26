@@ -109,7 +109,7 @@ command:		PENUP											{ penup(); }
 		;
 expression_list:	expression				   // Complete these and any missing rules
 		|			expression expression_list   
-		|       	expression PLUS expression_list 		
+		|       	expression_list PLUS expression		
 		;
 expression:	expression PLUS NUMBER				{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
 		|	expression MULT NUMBER				{ $$ = $1 * $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
