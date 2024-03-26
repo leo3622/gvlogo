@@ -35,7 +35,7 @@ static double x = WIDTH / 2;
 static double y = HEIGHT / 2;
 static int pen_state = 1;
 static double direction = 0.0;
-static int var_table[26];
+static float var_table[26];
 
 int yylex(void);
 int yyerror(const char* s);
