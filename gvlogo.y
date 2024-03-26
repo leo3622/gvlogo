@@ -157,8 +157,8 @@ void move(int num){
 	event.user.data1 = num;
 	SDL_PushEvent(&event);
 	coords prev_coords = current_coords;
-	current_coords.x = prev_coords.x + num * cos(prev_coords.alpha);
-	current_coords.y = prev_coords.y + num * sin(prev_coords.alpha);
+	current_coords.x = 5;
+	current_coords.y = 5;
 }
 
 void turn(int dir){
