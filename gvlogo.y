@@ -107,14 +107,14 @@ command:		PENUP											{ penup(); }
 		|		expression_list
 		| 		VAR EQUAL expression							{ printf("Variable assigned.\n"); }			
 		;
-expression_list:	expression				   // Complete these and any missing rules
+expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}// Complete these and any missing rules
 		|			expression expression_list
 		|			NUMBER PLUS expression   	{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}	
 		;
-expression:	expression PLUS NUMBER				{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
-		|	expression MULT NUMBER				{ $$ = $1 * $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
-		|	expression SUB NUMBER				{ $$ = $1 - $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
-		|	expression DIV NUMBER				{ $$ = $1 / $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
+expression:	expression PLUS NUMBER				{ $$ = $1 + $3; }
+		|	expression MULT NUMBER				{ $$ = $1 * $3; }
+		|	expression SUB NUMBER				{ $$ = $1 - $3; }
+		|	expression DIV NUMBER				{ $$ = $1 / $3; }
 		|	NUMBER 								{$$ = $1;}
 		;
 
