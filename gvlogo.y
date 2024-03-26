@@ -266,7 +266,12 @@ void startup(){
 					double degrees = ((int)e.user.data1) * M_PI / 180.0;
 					direction += degrees;
 				}
-				pen_state = e.user.code;
+				if(e.user.code == 0) {
+					pen_state = 0;
+				}
+				if(e.user.code == 1) {
+					pen_state = 1;
+				}
 			}
 			if(e.type == DRAW_EVENT){
 				if(e.user.code == 1){
