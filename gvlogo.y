@@ -55,6 +55,8 @@ void save(const char* path);
 void shutdown();
 void storeVariable(char var, float val);
 float getVariable(char var);
+float go_to(float x, float y);
+void where();
 
 %}
 
@@ -152,9 +154,10 @@ void pendown() {
 }
 
 void move(int num){
+	double radians = prev_coords.alpha * (M_PI / 180.0);
 	coords prev_coords = current_coords;
-	current_coords.x = round(prev_coords.x + num * cos(prev_coords.alpha));
-	current_coords.y = round(prev_coords.y + num * sin(prev_coords.alpha));
+	current_coords.x = round(prev_coords.x + num * cos(radians));
+	current_coords.y = round(prev_coords.y + num * sin(radians));
 	event.type = DRAW_EVENT;
 	event.user.code = 1;
 	event.user.data1 = num;
@@ -209,7 +212,7 @@ void go_to(float x, float y) {
 	current_coords.alpha = angle;
     // Draw if pen is down
     if (pen_state == 1) {
-        printf("Drawing line from (%d, %d) to (%d, %d)\n", prev_coords.x, prev_coords.y, current_coords.x, current_coords.y);
+        printf("Drawing line from (%f, %f) to (%f, %f)\n", prev_coords.x, prev_coords.y, current_coords.x, current_coords.y);
         
         // Move the turtle
         event.type = DRAW_EVENT;
