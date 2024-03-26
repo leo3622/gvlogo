@@ -116,7 +116,7 @@ expression:	expression PLUS NUMBER				{ $$ = $1 + $3; }
 		|	expression SUB NUMBER				{ $$ = $1 - $3; }
 		|	expression DIV NUMBER				{ $$ = $1 / $3; }
 		|	NUMBER 								{$$ = $1;}
-		|	VAR									{$$ = getVariable($1);}
+		|	VAR									{$$ = getVariable((char)$1);}
 		;
 
 %%
