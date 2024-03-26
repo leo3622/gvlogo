@@ -25,9 +25,9 @@ typedef struct color_t {
 } color;
 
 typedef struct coord_t {
-	int x;
-	int y;
-	int alpha = 0;
+	float x;
+	float y;
+	float alpha = 0;
 
 } coords;
 
@@ -106,7 +106,7 @@ command:		PENUP											{ penup(); }
 		|		CLEAR											{ clear(); }
 		|		TURN expression									{ turn((int)$2); }
 		|		MOVE expression									{ move((int)$2); }
-		|		GOTO expression expression						{ go_to((int)$2, (int)$3); }
+		|		GOTO expression expression						{ go_to($2, $3); }
 		|		WHERE											{ where(); }
 		|		expression_list
 		| 		VAR EQUAL expression							{storeVariable((char)$1, $3); printf("Variable assigned.\n"); }			
@@ -188,20 +188,35 @@ void clear(){
 	SDL_PushEvent(&event);
 }
 
-void go_to(int x, int y) {
-	coords prev_coords = current_coords;
-	current_coords.x = x;
-	current_coords.y = y;
+void go_to(float x, float y) {
+	// Change current coordinates
+    coords prev_coords = current_coords;
+    current_coords.x = x;
+    current_coords.y = y;
 
-	if(pen_state == 1){
-		int slope_x = current_coords.x - prev_coords.x;
-		int slope_y = current_coords.y - prev_coords.y;
-		double dir = atan(slope_y/slope_x);
-		event.type = DRAW_EVENT;
+    // Calculate change in x and y
+    float delta_x = current_coords.x - prev_coords.x;
+    float delta_y = current_coords.y - prev_coords.y;
+
+    // Calculate the distance to move
+    double distance = sqrt(delta_x * delta_x + delta_y * delta_y);
+
+    // Calculate the angle to turn
+    double angle = atan2(delta_y, delta_x) * 180.0 / M_PI;
+
+    // Turn the turtle
+    turn(angle);
+	current_coords.alpha = angle;
+    // Draw if pen is down
+    if (pen_state == 1) {
+        printf("Drawing line from (%d, %d) to (%d, %d)\n", prev_coords.x, prev_coords.y, current_coords.x, current_coords.y);
+        
+        // Move the turtle
+        event.type = DRAW_EVENT;
 		event.user.code = 1;
-		event.user.data1 = dir;
+		event.user.data1 = distance;
 		SDL_PushEvent(&event);
-	}
+    }
 }
 
 void where() {
