@@ -27,7 +27,7 @@ typedef struct color_t {
 typedef struct coord_t {
 	float x;
 	float y;
-	float alpha = 0;
+	float alpha;
 
 } coords;
 
@@ -169,7 +169,6 @@ void turn(int dir){
 	event.user.code = 2;
 	event.user.data1 = dir;
 	SDL_PushEvent(&event);
-	coords prev_coords = current_coords;
 	current_coords.alpha += dir;
 }
 
