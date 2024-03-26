@@ -116,6 +116,7 @@ expression:	expression PLUS NUMBER				{ $$ = $1 + $3; }
 		|	expression SUB NUMBER				{ $$ = $1 - $3; }
 		|	expression DIV NUMBER				{ $$ = $1 / $3; }
 		|	NUMBER 								{$$ = $1;}
+		|	VAR									{$$ = getVariable($1);}
 		;
 
 %%
@@ -197,7 +198,6 @@ void where() {
 
 void storeVariable(char var, float val) {
 	var_table[var] = val;
-	printf("%f", var_table[var]);
 }
 float getVariable(char var) {
 	return var_table[var];
