@@ -27,6 +27,8 @@ typedef struct color_t {
 typedef struct coord_t {
 	int x;
 	int y;
+	int alpha = 0;
+
 } coords;
 
 static coords current_coords;
@@ -154,6 +156,9 @@ void move(int num){
 	event.user.code = 1;
 	event.user.data1 = num;
 	SDL_PushEvent(&event);
+	coords prev_coords = current_coords;
+	current_coords.x = prev_coords.x + num * cos(direction);
+	current_coords.y = prev_coords.y + num * sin(direction);
 }
 
 void turn(int dir){
@@ -161,6 +166,8 @@ void turn(int dir){
 	event.user.code = 2;
 	event.user.data1 = dir;
 	SDL_PushEvent(&event);
+	coords prev_coords = current_coords;
+	current_coords.alpha += dir;
 }
 
 void output(const char* s){
@@ -187,10 +194,13 @@ void go_to(int x, int y) {
 	current_coords.y = y;
 
 	if(pen_state == 1){
-		int slope_y = current_coords.y - prev_coords.y;
 		int slope_x = current_coords.x - prev_coords.x;
+		int slope_y = current_coords.y - prev_coords.y;
 		double dir = atan(slope_y/slope_x);
-		move((int)dir);
+		event.type = DRAW_EVENT;
+		event.user.code = 1;
+		event.user.data1 = dir;
+		SDL_PushEvent(&event);
 	}
 }
 
@@ -200,7 +210,6 @@ void where() {
 
 void storeVariable(char var, float val) {
     var_table[var] = val;
-	printf("Worked: %f\n", var_table[var]);
 }
 
 float getVariable(char var) {
