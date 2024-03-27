@@ -88,7 +88,7 @@ void where();
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
 %token VAR
-%type<f> expression expression_list NUMBER factor
+%type<f> expression expression_list NUMBER factor value
 %type<c> VAR
 
 %%
@@ -119,16 +119,13 @@ expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Res
 		;
 expression:	expression PLUS factor				{ $$ = $1 + $3; }
 		|	expression SUB factor				{ $$ = $1 - $3; }
-		|	expression PLUS NUMBER				{ $$ = $1 + $3; }
-		|	expression SUB NUMBER				{ $$ = $1 - $3; }
-		|	NUMBER 								{$$ = $1;}
-		|	VAR									{$$ = getVariable((char)$1);}
+		|	factor
 		;
-factor:		NUMBER								{ $$ = $1; }
+factor:	factor MULT value				{ $$ = $1 * $3; }
+		|	factor DIV value				{ $$ = $1 / $3; }
+		;
+value: 	NUMBER								{ $$ = $1; }
 		|	VAR									{ $$ = getVariable((char)$1); }
-		|	expression MULT factor				{ $$ = $1 * $3; }
-		|	expression DIV factor				{ $$ = $1 / $3; }
-		;
 
 %%
 
