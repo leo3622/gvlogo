@@ -119,8 +119,7 @@ expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Res
 		|			NUMBER PLUS expression   	{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}
 		|			NUMBER SUB expression		{ $$ = $1 - $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}	
 		;
-expression:	
-		|	expression MULT NUMBER				{ $$ = $1 * $3; }
+expression:	expression MULT NUMBER				{ $$ = $1 * $3; }
 		|	expression DIV NUMBER				{ $$ = $1 / $3; }
 		|	NUMBER 								{$$ = $1;}
 		|	VAR									{$$ = getVariable((char)$1);}
