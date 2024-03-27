@@ -109,7 +109,7 @@ command:		PENUP											{ penup(); }
 		|		CLEAR											{ clear(); }
 		|		TURN value										{ turn((int)$2); }
 		|		MOVE value										{ move((int)$2); }
-		|		GOTO value										{ go_to($2, $3); }
+		|		GOTO value	value								{ go_to($2, $3); }
 		|		WHERE											{ where(); }
 		|		expression_list
 		| 		VAR EQUAL expression_list						{storeVariable((char)$1, $3); printf("Variable assigned.\n"); }			
