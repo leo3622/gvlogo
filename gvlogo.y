@@ -88,7 +88,7 @@ void where();
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
 %token VAR
-%type<f> expression expression_list NUMBER factor value
+%type<f> expression expression_list NUMBER
 %type<c> VAR
 
 %%
@@ -105,27 +105,27 @@ command:		PENUP											{ penup(); }
 		|		PENDOWN											{ pendown(); }
 		|		PRINT QSTRING									{ output((char*)$2); }
 		|		SAVE STRING										{ save((char*)$2); }
-		|		CHANGE_COLOR value value value					{ change_color((int)$2, (int)$3, (int)$4); }
+		|		CHANGE_COLOR expression expression expression	{ change_color((int)$2, (int)$3, (int)$4); }
 		|		CLEAR											{ clear(); }
-		|		TURN value										{ turn((int)$2); }
-		|		MOVE value										{ move((int)$2); }
-		|		GOTO value	value								{ go_to($2, $3); }
+		|		TURN expression									{ turn((int)$2); }
+		|		MOVE expression									{ move((int)$2); }
+		|		GOTO expression expression						{ go_to($2, $3); }
 		|		WHERE											{ where(); }
 		|		expression_list
-		| 		VAR EQUAL expression_list						{storeVariable((char)$1, $3); printf("Variable assigned.\n"); }			
+		| 		VAR EQUAL expression							{storeVariable((char)$1, $3); printf("Variable assigned.\n"); }			
 		;
 expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}// Complete these and any missing rules
 		|			expression expression_list
+		|			NUMBER PLUS expression   	{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}
+		|			NUMBER SUB expression		{ $$ = $1 - $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}	
 		;
-expression:	expression PLUS factor				{ $$ = $1 + $3; }
-		|	expression SUB factor				{ $$ = $1 - $3; }
-		|	factor
+expression:	expression PLUS NUMBER				{ $$ = $1 + $3; }
+		|	expression MULT NUMBER				{ $$ = $1 * $3; }
+		|	expression SUB NUMBER				{ $$ = $1 - $3; }
+		|	expression DIV NUMBER				{ $$ = $1 / $3; }
+		|	NUMBER 								{$$ = $1;}
+		|	VAR									{$$ = getVariable((char)$1);}
 		;
-factor:	factor MULT value						{ $$ = $1 * $3; }
-		|	factor DIV value					{ $$ = $1 / $3; }
-		;
-value: 	NUMBER									{ $$ = $1; }
-		|	VAR									{ $$ = getVariable((char)$1); }
 
 %%
 
