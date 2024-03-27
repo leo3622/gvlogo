@@ -119,6 +119,8 @@ expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Res
 		;
 expression:	expression PLUS factor				{ $$ = $1 + $3; }
 		|	expression SUB factor				{ $$ = $1 - $3; }
+		|	expression PLUS NUMBER				{ $$ = $1 + $3; }
+		|	expression SUB NUMBER				{ $$ = $1 - $3; }
 		|	NUMBER 								{$$ = $1;}
 		|	VAR									{$$ = getVariable((char)$1);}
 		;
