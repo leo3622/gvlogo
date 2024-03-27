@@ -88,7 +88,7 @@ void where();
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
 %token VAR
-%type<f> expression expression_list NUMBER
+%type<f> expression expression_list NUMBER factor
 %type<c> VAR
 
 %%
@@ -116,14 +116,16 @@ command:		PENUP											{ penup(); }
 		;
 expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}// Complete these and any missing rules
 		|			expression expression_list
-		|			NUMBER PLUS expression   	{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}	
 		;
-expression:	expression PLUS NUMBER				{ $$ = $1 + $3; }
-		|	expression MULT NUMBER				{ $$ = $1 * $3; }
-		|	expression SUB NUMBER				{ $$ = $1 - $3; }
-		|	expression DIV NUMBER				{ $$ = $1 / $3; }
+expression:	expression PLUS factor				{ $$ = $1 + $3; }
+		|	expression SUB factor				{ $$ = $1 - $3; }
 		|	NUMBER 								{$$ = $1;}
 		|	VAR									{$$ = getVariable((char)$1);}
+		;
+factor:		NUMBER								{ $$ = $1; }
+		|	VAR									{ $$ = getVariable((char)$1); }
+		|	expression MULT factor				{ $$ = $1 * $3; }
+		|	expression DIV factor				{ $$ = $1 / $3; }
 		;
 
 %%
