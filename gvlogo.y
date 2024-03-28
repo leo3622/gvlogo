@@ -114,7 +114,7 @@ command:		PENUP											{ penup(); }
 		|		expression_list
 		| 		VAR EQUAL expression							{storeVariable((char)$1, $3); printf("Variable assigned.\n"); }			
 		;
-expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}// Complete these and any missing rules
+expression_list:	expression				   	// Complete these and any missing rules
 		|			expression expression_list
 		|			NUMBER PLUS expression_list   	{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}
 		|			NUMBER SUB expression_list		{ $$ = $1 - $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}	
