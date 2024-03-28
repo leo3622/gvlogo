@@ -119,6 +119,7 @@ expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Res
 		;
 expression:	expression PLUS piority   	{ $$ = $1 + $3;}
 		|	expression SUB piority		{ $$ = $1 - $3;}
+		|	piority						{ $$ = $1;}
 		;
 piority:	piority MULT value		{ $$ = $1 * $3;}
 		|	piority DIV value		{ $$ = $1 / $3;}
