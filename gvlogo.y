@@ -88,7 +88,7 @@ void where();
 %token PLUS SUB MULT DIV
 %token<s> STRING QSTRING
 %token VAR
-%type<f> expression expression_list NUMBER
+%type<f> expression expression_list NUMBER piority value
 %type<c> VAR
 
 %%
@@ -115,14 +115,17 @@ command:		PENUP											{ penup(); }
 		| 		VAR EQUAL expression							{storeVariable((char)$1, $3); printf("Variable assigned.\n"); }			
 		;
 expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}// Complete these and any missing rules
-		|			expression expression_list
-		|			expression PLUS expression_list   	{ $$ = $1 + $3;}
-		|			expression SUB expression_list		{ $$ = $1 - $3;}	
+		|			expression expression_list	
 		;
-expression:	expression MULT NUMBER				{ $$ = $1 * $3; }
-		|	expression DIV NUMBER				{ $$ = $1 / $3; }
-		|	NUMBER 								{$$ = $1;}
-		|	VAR									{$$ = getVariable((char)$1);}
+expression:	expression PLUS piority   	{ $$ = $1 + $3;}
+		|	expression SUB piority		{ $$ = $1 - $3;}
+		;
+piority:	piority MULT value		{ $$ = $1 * $3;}
+		|	piority DIV value		{ $$ = $1 / $3;}
+		|	value					{ $$ = $1;}
+		;
+value:		NUMBER					{ $$ = $1;}
+		|	VAR						{ $$ = getVariable($1);}
 		;
 
 %%
