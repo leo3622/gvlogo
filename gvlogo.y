@@ -111,7 +111,7 @@ command:		PENUP											{ penup(); }
 		|		MOVE expression									{ move((int)$2); }
 		|		GOTO expression expression						{ go_to($2, $3); }
 		|		WHERE											{ where(); }
-		|		expression_list									{ printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$); }
+		|		expression_list
 		| 		VAR EQUAL expression							{storeVariable((char)$1, $3); printf("Variable assigned.\n"); }			
 		;
 expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}// Complete these and any missing rules
