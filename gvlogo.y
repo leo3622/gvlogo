@@ -116,8 +116,8 @@ command:		PENUP											{ penup(); }
 		;
 expression_list:	expression				   	{ $$ = $1; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}// Complete these and any missing rules
 		|			expression expression_list
-		|			NUMBER PLUS expression_list   	{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}
-		|			NUMBER SUB expression_list		{ $$ = $1 - $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}	
+		|			NUMBER PLUS expression_list   	//{ $$ = $1 + $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}
+		|			NUMBER SUB expression_list		//{ $$ = $1 - $3; if ($$ - (int)$$ == 0) printf("Result: %d\n", (int)$$); else printf("Result: %.1f\n", $$);}	
 		;
 expression:	expression MULT NUMBER				{ $$ = $1 * $3; }
 		|	expression DIV NUMBER				{ $$ = $1 / $3; }
